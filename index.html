@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Микроквест 2: Правда или неправда?</title>
+  <style>
+    :root {
+      --bg: #f7efe2;
+      --panel: rgba(255, 252, 246, 0.92);
+      --text: #201813;
+      --muted: #6c6258;
+      --line: rgba(32, 24, 19, 0.12);
+      --accent: #cc5a2d;
+      --accent-2: #1d786a;
+      --accent-3: #f0c15a;
+      --danger: #8b3324;
+      --shadow: 0 24px 60px rgba(54, 35, 20, 0.14);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(240, 193, 90, 0.28), transparent 25%),
+        radial-gradient(circle at 90% 15%, rgba(29, 120, 106, 0.2), transparent 22%),
+        linear-gradient(180deg, #fcf7ef 0%, #f3e8d5 45%, #ead9c2 100%);
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .app {
+      position: relative;
+      width: min(980px, 100%);
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.36);
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 0.98;
+      max-width: 10ch;
+      font-family: "Arial Black", "Trebuchet MS", Arial, sans-serif;
+      letter-spacing: -0.04em;
+    }
+
+    .progress {
+      min-width: 210px;
+      text-align: right;
+    }
+
+    .progress strong {
+      display: block;
+      font-size: 26px;
+      color: var(--accent);
+    }
+
+    .progress span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .content {
+      padding: clamp(20px, 4vw, 38px);
+      display: grid;
+      gap: 24px;
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card,
+    .feedback {
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 22px;
+    }
+
+    .intro {
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.55), transparent 36%),
+        linear-gradient(180deg, rgba(240, 193, 90, 0.2), rgba(255, 255, 255, 0.78));
+    }
+
+    .card p,
+    .feedback p {
+      margin: 0;
+      line-height: 1.58;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .intro h2,
+    .fact-card h2,
+    .results-card h2 {
+      margin: 0 0 12px;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.1;
+      font-family: "Arial Black", "Trebuchet MS", Arial, sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .side-column,
+    .fact-column {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feedback {
+      min-height: 160px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.75), rgba(32, 24, 19, 0.04)),
+        rgba(32, 24, 19, 0.04);
+      border-style: dashed;
+      align-content: start;
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    button,
+    a.button-link {
+      appearance: none;
+      border: none;
+      text-decoration: none;
+      border-radius: 20px;
+      text-align: left;
+      font: inherit;
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    button:hover,
+    a.button-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .choice {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.95), rgba(249, 240, 231, 0.92));
+      box-shadow: 0 10px 26px rgba(54, 35, 20, 0.08);
+    }
+
+    .choice strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 24px;
+      font-family: "Arial Black", "Trebuchet MS", Arial, sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .choice span {
+      display: block;
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .choice.correct {
+      background: rgba(29, 120, 106, 0.14);
+      border-color: rgba(29, 120, 106, 0.42);
+    }
+
+    .choice.wrong {
+      background: rgba(139, 51, 36, 0.1);
+      border-color: rgba(139, 51, 36, 0.34);
+    }
+
+    .button-link,
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+    }
+
+    .button-link {
+      background: var(--accent-2);
+      color: #f7fffd;
+      box-shadow: 0 12px 24px rgba(29, 120, 106, 0.22);
+    }
+
+    .next-wrap {
+      min-height: 52px;
+    }
+
+    .next-btn {
+      background: var(--accent);
+      color: #fff7f1;
+      box-shadow: 0 14px 30px rgba(204, 90, 45, 0.28);
+      padding: 14px 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .sad-face {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(139, 51, 36, 0.1);
+      font-size: 28px;
+    }
+
+    .results {
+      display: none;
+      gap: 20px;
+    }
+
+    .results.visible {
+      display: grid;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 20px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 34px;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .stat span {
+      color: var(--muted);
+    }
+
+    .persona {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      text-align: center;
+      gap: 12px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.65), transparent 40%),
+        linear-gradient(180deg, rgba(29, 120, 106, 0.08), rgba(255, 255, 255, 0.72));
+      padding: 24px;
+    }
+
+    .persona-art {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 86px;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.2)),
+        linear-gradient(180deg, rgba(240, 193, 90, 0.44), rgba(29, 120, 106, 0.18));
+      border: 1px solid rgba(32, 24, 19, 0.08);
+      box-shadow: inset 0 10px 24px rgba(255, 255, 255, 0.4);
+    }
+
+    .persona h3 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .persona p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    .play-again {
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff7f1;
+      box-shadow: 0 14px 30px rgba(204, 90, 45, 0.28);
+      justify-self: start;
+    }
+
+    .shake {
+      animation: shake 440ms ease;
+    }
+
+    .burst {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 12px;
+      height: 18px;
+      opacity: 0.9;
+      animation: fall 1200ms ease-out forwards;
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-8vh) rotate(0deg);
+      }
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      15% { transform: translateX(-8px) rotate(-0.4deg); }
+      30% { transform: translateX(6px) rotate(0.4deg); }
+      45% { transform: translateX(-6px) rotate(-0.3deg); }
+      60% { transform: translateX(4px) rotate(0.3deg); }
+      75% { transform: translateX(-3px); }
+    }
+
+    @media (max-width: 860px) {
+      .game-layout,
+      .results-grid,
+      .choices,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .progress {
+        text-align: left;
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <div class="topbar">
+      <div>
+        <p class="eyebrow">Микроквест дня 2</p>
+        <h1>Правда или неправда</h1>
+      </div>
+      <div class="progress">
+        <strong id="score">0 / 8</strong>
+        <span id="step">Карточка 1 из 8</span>
+      </div>
+    </div>
+
+    <div class="content" id="game-screen">
+      <div class="game-layout">
+        <div class="side-column">
+          <section class="card intro">
+            <p class="eyebrow">Как играть</p>
+            <h2>Как играть</h2>
+            <p>На карточке справа будет странный факт. Твоя задача — решить, это правда или неправда. После ответа вернуться назад нельзя: показывается разбор, а потом только следующий вопрос</p>
+          </section>
+
+          <section class="feedback" id="feedback">
+            <div>
+              <strong>Поехали</strong>
+              <p>Смотри на факт справа, выбирай один вариант и проверяй себя. Если карточка окажется настоящей или это известный миф, я дам ссылку на подтверждение</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="fact-column">
+          <section class="card fact-card">
+            <p class="eyebrow">Факт</p>
+            <h2 id="claim"></h2>
+            <p id="description"></p>
+          </section>
+
+          <section class="choices">
+            <button class="choice" data-answer="true">
+              <strong>Правда</strong>
+              <span>Это звучит странно, но я верю, что такое бывает</span>
+            </button>
+            <button class="choice" data-answer="false">
+              <strong>Неправда</strong>
+              <span>Это звучит как красивая выдумка или миф</span>
+            </button>
+          </section>
+
+          <div class="next-wrap">
+            <button class="next-btn hidden" id="next-btn">Дальше</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content results" id="results-screen">
+      <section class="card results-card">
+        <p class="eyebrow">Финал</p>
+        <h2 id="final-title"></h2>
+        <p id="final-text"></p>
+      </section>
+
+      <section class="results-grid">
+        <div class="stats">
+          <div class="stat">
+            <strong id="final-score">0</strong>
+            <span>правильных ответов</span>
+          </div>
+          <div class="stat">
+            <strong id="final-percent">0%</strong>
+            <span>точность</span>
+          </div>
+          <div class="stat">
+            <strong id="final-rank">...</strong>
+            <span>твой титул</span>
+          </div>
+          <div class="stat">
+            <strong>8</strong>
+            <span>карточек пройдено</span>
+          </div>
+        </div>
+
+        <div class="persona">
+          <div class="persona-art" id="persona-art">🕵️</div>
+          <h3 id="persona-name"></h3>
+          <p id="persona-text"></p>
+        </div>
+      </section>
+
+      <button class="play-again" id="play-again-btn">Сыграть ещё раз</button>
+    </div>
+  </div>
+
+  <div class="burst" id="burst"></div>
+
+  <script>
+    const cards = [
+      {
+        claim: "На Марсе закаты могут быть голубыми",
+        description: "Из-за пыли в атмосфере марсианское небо на закате иногда выглядит неожиданно синим",
+        isTrue: true,
+        revealTitle: "Да, это правда",
+        revealText: "У Марса действительно бывают голубые закаты. NASA не раз публиковало такие наблюдения и объяснение этого эффекта",
+        proofLabel: "Пруф от NASA",
+        proofUrl: "https://science.nasa.gov/resource/curiositys-first-color-image-of-a-martian-sunset/"
+      },
+      {
+        claim: "Золотые рыбки помнят только последние три секунды",
+        description: "Этот миф повторяют так часто, что он уже кажется общеизвестной истиной",
+        isTrue: false,
+        revealTitle: "Нет, это неправда",
+        revealText: "История про память на три секунды — популярный миф. У золотых рыбок память заметно сложнее и длиннее",
+        proofLabel: "Пруф, что это миф",
+        proofUrl: "https://animals.howstuffworks.com/pets/question609.htm"
+      },
+      {
+        claim: "У осьминогов три сердца",
+        description: "Причём это ещё не самая странная часть их устройства",
+        isTrue: true,
+        revealTitle: "Да, это правда",
+        revealText: "У осьминогов действительно три сердца. Два качают кровь через жабры, одно — по остальному телу",
+        proofLabel: "Пруф от Smithsonian",
+        proofUrl: "https://www.smithsonianmag.com/science-nature/ten-wild-facts-about-octopuses-they-have-three-hearts-big-brains-and-blue-blood-7625828/"
+      },
+      {
+        claim: "Великую Китайскую стену видно с Луны невооружённым глазом",
+        description: "Это звучит настолько эпично, что мозг почти не хочет спорить",
+        isTrue: false,
+        revealTitle: "Нет, это неправда",
+        revealText: "Это один из самых известных мифов о космосе. В таком виде стену с Луны не видно",
+        proofLabel: "Пруф от NASA",
+        proofUrl: "https://www.nasa.gov/history/2004/spacewall.htm"
+      },
+      {
+        claim: "Вомбаты делают помёт в форме кубиков",
+        description: "Да, почти буквальных кубиков. Звучит как шутка, но нет",
+        isTrue: true,
+        revealTitle: "Да, это правда",
+        revealText: "У вомбатов действительно бывает кубический помёт. Это реальный биологический феномен",
+        proofLabel: "Пруф от National Geographic",
+        proofUrl: "https://www.nationalgeographic.com/animals/article/wombat-poop-cube-shape"
+      },
+      {
+        claim: "Быки злятся именно на красный цвет",
+        description: "Поэтому матадоры якобы специально раздражают их красной тканью",
+        isTrue: false,
+        revealTitle: "Нет, это неправда",
+        revealText: "Быки реагируют скорее на движение ткани, а не на сам красный цвет как таковой",
+        proofLabel: "Пруф от Britannica",
+        proofUrl: "https://www.britannica.com/story/why-are-bulls-angry-at-the-color-red"
+      },
+      {
+        claim: "Самая длинная в истории серия икоты длилась 68 лет",
+        description: "Звучит как перебор даже для книги рекордов",
+        isTrue: true,
+        revealTitle: "Да, это правда",
+        revealText: "Такой рекорд действительно зафиксирован. История звучит почти невозможно, но это реальный мировой рекорд",
+        proofLabel: "Пруф от Guinness World Records",
+        proofUrl: "https://www.guinnessworldrecords.com/world-records/67619-longest-attack-of-hiccups"
+      },
+      {
+        claim: "Люди используют только 10% своего мозга",
+        description: "Очень живучий миф, который любит всплывать в поп-культуре",
+        isTrue: false,
+        revealTitle: "Нет, это неправда",
+        revealText: "Это миф. Мозг работает гораздо сложнее, и идея про фиксированные 10% не соответствует реальности",
+        proofLabel: "Пруф от Britannica",
+        proofUrl: "https://www.britannica.com/story/do-we-really-use-only-10-percent-of-our-brains"
+      }
+    ];
+
+    const personas = [
+      {
+        minScore: 7,
+        rank: "Факт-чекер уровня легенды",
+        title: "Ты лучший угадыватель фактов",
+        text: "Редкие мифы проходят мимо тебя незамеченными. Очень уверенное чувство на правду и на красиво упакованную ерунду",
+        personaName: "Главный проверяющий",
+        personaText: "Собранный, внимательный и опасный для фейков человек",
+        art: "🕵️"
+      },
+      {
+        minScore: 5,
+        rank: "Знаток фактов",
+        title: "Ты знаток фактов",
+        text: "Очень достойный результат. Ты уже хорошо чувствуешь, где странный реальный факт, а где интернет решил тебя разыграть",
+        personaName: "Любопытный эрудит",
+        personaText: "Такой человек слышит абсурд и первым делом хочет проверить источник",
+        art: "🎓"
+      },
+      {
+        minScore: 3,
+        rank: "Почти эрудит",
+        title: "Ты почти эрудит",
+        text: "У тебя уже есть хороший радар на необычные факты. Пара карточек ещё смогла запутать, но это как раз часть игры",
+        personaName: "Исследователь странностей",
+        personaText: "Человек, который ещё чуть-чуть — и станет грозой всех сомнительных фактов",
+        art: "🧭"
+      },
+      {
+        minScore: 0,
+        rank: "Смелый исследователь",
+        title: "Ты смелый исследователь фактов",
+        text: "Самое важное тут не идеальный счёт, а азарт проверять странные вещи. Теперь у тебя есть полный набор разборов и пруфов",
+        personaName: "Охотник за удивительным",
+        personaText: "Человек, который не боится ошибаться и поэтому узнаёт больше всех",
+        art: "✨"
+      }
+    ];
+
+    const claimEl = document.getElementById("claim");
+    const descriptionEl = document.getElementById("description");
+    const scoreEl = document.getElementById("score");
+    const stepEl = document.getElementById("step");
+    const feedbackEl = document.getElementById("feedback");
+    const nextBtn = document.getElementById("next-btn");
+    const playAgainBtn = document.getElementById("play-again-btn");
+    const gameScreen = document.getElementById("game-screen");
+    const resultsScreen = document.getElementById("results-screen");
+    const finalScoreEl = document.getElementById("final-score");
+    const finalPercentEl = document.getElementById("final-percent");
+    const finalRankEl = document.getElementById("final-rank");
+    const finalTitleEl = document.getElementById("final-title");
+    const finalTextEl = document.getElementById("final-text");
+    const personaArtEl = document.getElementById("persona-art");
+    const personaNameEl = document.getElementById("persona-name");
+    const personaTextEl = document.getElementById("persona-text");
+    const appEl = document.getElementById("app");
+    const burstEl = document.getElementById("burst");
+    const choiceButtons = Array.from(document.querySelectorAll(".choice"));
+
+    let state = {
+      index: 0,
+      score: 0,
+      locked: false
+    };
+
+    function renderCard() {
+      const item = cards[state.index];
+      claimEl.textContent = item.claim;
+      descriptionEl.textContent = item.description;
+      scoreEl.textContent = `${state.score} / ${cards.length}`;
+      stepEl.textContent = `Карточка ${state.index + 1} из ${cards.length}`;
+      feedbackEl.innerHTML = `
+        <div>
+          <strong>Поехали</strong>
+          <p>Смотри на факт справа, выбирай один вариант и проверяй себя. После ответа вопрос уже закрывается, назад вернуться нельзя</p>
+        </div>
+      `;
+      nextBtn.classList.add("hidden");
+      state.locked = false;
+
+      choiceButtons.forEach((button) => {
+        button.disabled = false;
+        button.classList.remove("correct", "wrong");
+      });
+    }
+
+    function burstConfetti() {
+      const colors = ["#cc5a2d", "#1d786a", "#f0c15a", "#db7c34", "#3f6f35"];
+      burstEl.innerHTML = "";
+      for (let i = 0; i < 28; i += 1) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = `${Math.random() * 160}ms`;
+        burstEl.appendChild(piece);
+      }
+      window.setTimeout(() => {
+        burstEl.innerHTML = "";
+      }, 1500);
+    }
+
+    function shakeApp() {
+      appEl.classList.remove("shake");
+      void appEl.offsetWidth;
+      appEl.classList.add("shake");
+    }
+
+    function renderReveal(item, isCorrect) {
+      const mood = isCorrect
+        ? `<strong>${item.revealTitle}</strong><p>${item.revealText}</p>`
+        : `<div class="sad-face">☹️</div><strong>${item.revealTitle}</strong><p>${item.revealText}</p>`;
+
+      return `
+        <div>
+          ${mood}
+          <div class="proof">
+            <a class="button-link" href="${item.proofUrl}" target="_blank" rel="noreferrer">${item.proofLabel}</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleAnswer(selectedValue) {
+      if (state.locked) {
+        return;
+      }
+
+      const item = cards[state.index];
+      const normalized = selectedValue === "true";
+      const isCorrect = normalized === item.isTrue;
+      state.locked = true;
+
+      choiceButtons.forEach((button) => {
+        button.disabled = true;
+        const buttonValue = button.dataset.answer === "true";
+        if (buttonValue === item.isTrue) {
+          button.classList.add("correct");
+        } else if (buttonValue === normalized) {
+          button.classList.add("wrong");
+        }
+      });
+
+      if (isCorrect) {
+        state.score += 1;
+        scoreEl.textContent = `${state.score} / ${cards.length}`;
+        burstConfetti();
+      } else {
+        shakeApp();
+      }
+
+      feedbackEl.innerHTML = renderReveal(item, isCorrect);
+      nextBtn.textContent = state.index === cards.length - 1 ? "Показать результат" : "Следующий факт";
+      nextBtn.classList.remove("hidden");
+    }
+
+    function pickPersona(score) {
+      return personas.find((item) => score >= item.minScore) || personas[personas.length - 1];
+    }
+
+    function showResults() {
+      const percent = Math.round((state.score / cards.length) * 100);
+      const persona = pickPersona(state.score);
+
+      gameScreen.classList.add("hidden");
+      resultsScreen.classList.add("visible");
+      finalScoreEl.textContent = String(state.score);
+      finalPercentEl.textContent = `${percent}%`;
+      finalRankEl.textContent = persona.rank;
+      finalTitleEl.textContent = persona.title;
+      finalTextEl.textContent = persona.text;
+      personaArtEl.textContent = persona.art;
+      personaNameEl.textContent = persona.personaName;
+      personaTextEl.textContent = persona.personaText;
+    }
+
+    function nextStep() {
+      if (state.index === cards.length - 1) {
+        showResults();
+        return;
+      }
+
+      state.index += 1;
+      renderCard();
+    }
+
+    function restartGame() {
+      state = {
+        index: 0,
+        score: 0,
+        locked: false
+      };
+      resultsScreen.classList.remove("visible");
+      gameScreen.classList.remove("hidden");
+      renderCard();
+    }
+
+    choiceButtons.forEach((button) => {
+      button.addEventListener("click", () => handleAnswer(button.dataset.answer));
+    });
+
+    nextBtn.addEventListener("click", nextStep);
+    playAgainBtn.addEventListener("click", restartGame);
+
+    renderCard();
+  </script>
+</body>
+</html>

@@ -205,13 +205,6 @@
       letter-spacing: -0.03em;
     }
 
-    .choice span {
-      display: block;
-      font-size: 15px;
-      line-height: 1.45;
-      color: var(--muted);
-    }
-
     .choice.correct {
       background: rgba(29, 120, 106, 0.14);
       border-color: rgba(29, 120, 106, 0.42);
@@ -445,17 +438,14 @@
           <section class="card fact-card">
             <p class="eyebrow">Факт</p>
             <h2 id="claim"></h2>
-            <p id="description"></p>
           </section>
 
           <section class="choices">
             <button class="choice" data-answer="true">
               <strong>Правда</strong>
-              <span>Это звучит странно, но я верю, что такое бывает</span>
             </button>
             <button class="choice" data-answer="false">
               <strong>Неправда</strong>
-              <span>Это звучит как красивая выдумка или миф</span>
             </button>
           </section>
 
@@ -510,25 +500,25 @@
     const cards = [
       {
         claim: "На Марсе закаты могут быть голубыми",
-        description: "Из-за пыли в атмосфере марсианское небо на закате иногда выглядит неожиданно синим",
+        description: "",
         isTrue: true,
         revealTitle: "Да, это правда",
         revealText: "У Марса действительно бывают голубые закаты. NASA не раз публиковало такие наблюдения и объяснение этого эффекта",
         proofLabel: "Пруф от NASA",
-        proofUrl: "https://science.nasa.gov/resource/curiositys-first-color-image-of-a-martian-sunset/"
+        proofUrl: "https://science.nasa.gov/photojournal/mastcam-zs-first-martian-sunset/"
       },
       {
         claim: "Золотые рыбки помнят только последние три секунды",
-        description: "Этот миф повторяют так часто, что он уже кажется общеизвестной истиной",
+        description: "",
         isTrue: false,
         revealTitle: "Нет, это неправда",
         revealText: "История про память на три секунды — популярный миф. У золотых рыбок память заметно сложнее и длиннее",
         proofLabel: "Пруф, что это миф",
-        proofUrl: "https://animals.howstuffworks.com/pets/question609.htm"
+        proofUrl: "https://animals.howstuffworks.com/pets/how-much-can-a-goldfish-remember.htm"
       },
       {
         claim: "У осьминогов три сердца",
-        description: "Причём это ещё не самая странная часть их устройства",
+        description: "",
         isTrue: true,
         revealTitle: "Да, это правда",
         revealText: "У осьминогов действительно три сердца. Два качают кровь через жабры, одно — по остальному телу",
@@ -537,34 +527,34 @@
       },
       {
         claim: "Великую Китайскую стену видно с Луны невооружённым глазом",
-        description: "Это звучит настолько эпично, что мозг почти не хочет спорить",
+        description: "",
         isTrue: false,
         revealTitle: "Нет, это неправда",
         revealText: "Это один из самых известных мифов о космосе. В таком виде стену с Луны не видно",
         proofLabel: "Пруф от NASA",
-        proofUrl: "https://www.nasa.gov/history/2004/spacewall.htm"
+        proofUrl: "https://www.nasa.gov/image-article/great-wall/"
       },
       {
         claim: "Вомбаты делают помёт в форме кубиков",
-        description: "Да, почти буквальных кубиков. Звучит как шутка, но нет",
+        description: "",
         isTrue: true,
         revealTitle: "Да, это правда",
         revealText: "У вомбатов действительно бывает кубический помёт. Это реальный биологический феномен",
         proofLabel: "Пруф от National Geographic",
-        proofUrl: "https://www.nationalgeographic.com/animals/article/wombat-poop-cube-shape"
+        proofUrl: "https://www.nationalgeographic.com/animals/article/wombat-poop-cube-why-is-it-square-shaped"
       },
       {
         claim: "Быки злятся именно на красный цвет",
-        description: "Поэтому матадоры якобы специально раздражают их красной тканью",
+        description: "",
         isTrue: false,
         revealTitle: "Нет, это неправда",
         revealText: "Быки реагируют скорее на движение ткани, а не на сам красный цвет как таковой",
-        proofLabel: "Пруф от Britannica",
-        proofUrl: "https://www.britannica.com/story/why-are-bulls-angry-at-the-color-red"
+        proofLabel: "Пруф от Live Science",
+        proofUrl: "https://www.livescience.com/33700-bulls-charge-red.html"
       },
       {
         claim: "Самая длинная в истории серия икоты длилась 68 лет",
-        description: "Звучит как перебор даже для книги рекордов",
+        description: "",
         isTrue: true,
         revealTitle: "Да, это правда",
         revealText: "Такой рекорд действительно зафиксирован. История звучит почти невозможно, но это реальный мировой рекорд",
@@ -573,12 +563,12 @@
       },
       {
         claim: "Люди используют только 10% своего мозга",
-        description: "Очень живучий миф, который любит всплывать в поп-культуре",
+        description: "",
         isTrue: false,
         revealTitle: "Нет, это неправда",
         revealText: "Это миф. Мозг работает гораздо сложнее, и идея про фиксированные 10% не соответствует реальности",
         proofLabel: "Пруф от Britannica",
-        proofUrl: "https://www.britannica.com/story/do-we-really-use-only-10-percent-of-our-brains"
+        proofUrl: "https://www.britannica.com/story/do-we-really-use-only-10-percent-of-our-brain"
       }
     ];
 
@@ -622,7 +612,6 @@
     ];
 
     const claimEl = document.getElementById("claim");
-    const descriptionEl = document.getElementById("description");
     const scoreEl = document.getElementById("score");
     const stepEl = document.getElementById("step");
     const feedbackEl = document.getElementById("feedback");
@@ -651,7 +640,6 @@
     function renderCard() {
       const item = cards[state.index];
       claimEl.textContent = item.claim;
-      descriptionEl.textContent = item.description;
       scoreEl.textContent = `${state.score} / ${cards.length}`;
       stepEl.textContent = `Карточка ${state.index + 1} из ${cards.length}`;
       feedbackEl.innerHTML = `

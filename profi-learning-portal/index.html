@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profi.ru Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Profi.ru Academy">
+          <span class="brand-mark">profi</span>
+          <span class="brand-name">Academy</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Главная навигация">
+          <a href="#tracks">Мой трек</a>
+          <a href="#catalog">Каталог</a>
+          <a href="#events">Тренинги</a>
+          <a href="#knowledge">База знаний</a>
+          <a href="#video">Видео</a>
+          <a href="#managers">Для менеджеров</a>
+        </nav>
+
+        <a class="header-action" href="#profile">Мой прогресс</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Учебный портал сотрудников Profi.ru</p>
+            <h1>Ваш маршрут обучения в Profi.ru</h1>
+            <p class="hero-text">
+              Онбординг, треки новичков, программы для people-менеджеров, база знаний,
+              видеотека и удобная запись на тренинги без лишних переходов.
+            </p>
+
+            <form class="hero-search" action="#catalog">
+              <label class="visually-hidden" for="portal-search">Поиск по порталу</label>
+              <input id="portal-search" type="text" placeholder="Искать курсы, статьи, видео, тренинги">
+              <button type="submit">Найти</button>
+            </form>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="onboarding.html">Продолжить обучение</a>
+              <a class="button button-secondary" href="events.html">Записаться на тренинг</a>
+            </div>
+
+            <ul class="chip-list" aria-label="Быстрые переходы">
+              <li><a href="#onboarding">Онбординг</a></li>
+              <li><a href="#tracks">Новичкам</a></li>
+              <li><a href="#managers">People-менеджерам</a></li>
+              <li><a href="#knowledge">База знаний</a></li>
+              <li><a href="#video">Видео</a></li>
+            </ul>
+          </div>
+
+          <aside class="hero-panel" id="profile">
+            <div class="panel-card panel-card-highlight">
+              <span class="panel-label">Мой статус</span>
+              <strong>Неделя 2 из 4</strong>
+              <p>Вы проходите трек адаптации и уже закрыли 5 обязательных модулей.</p>
+              <a href="onboarding.html">Открыть план 30/60/90</a>
+            </div>
+
+            <div class="panel-metrics">
+              <article class="metric-card">
+                <span>12</span>
+                <p>обязательных модулей в онбординге</p>
+              </article>
+              <article class="metric-card">
+                <span>48</span>
+                <p>ближайших обучающих событий</p>
+              </article>
+              <article class="metric-card">
+                <span>650+</span>
+                <p>статей, гайдов и видео в базе</p>
+              </article>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Что умеет портал</p>
+            <h2>Не просто каталог курсов, а рабочий хаб для ежедневного обучения</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h3>Индивидуальные треки</h3>
+              <p>Для новичков, managers и всех сотрудников доступны разные маршруты и рекомендации.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Все материалы в одном окне</h3>
+              <p>Курсы, статьи, видео, шаблоны и FAQ больше не разбросаны по внутренним сервисам.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Быстрая запись на события</h3>
+              <p>Тренинги, вебинары и школы доступны с фильтрами по формату, теме и дате.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Прозрачный прогресс</h3>
+              <p>Сразу видно, что обязательно, что рекомендовано и к чему стоит вернуться.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="tracks">
+        <div class="container">
+          <div class="section-heading section-heading-inline">
+            <div>
+              <p class="eyebrow">С чего начать</p>
+              <h2>Выберите свой трек</h2>
+            </div>
+            <div class="track-switch" role="tablist" aria-label="Фильтр контента по ролям">
+              <button class="track-filter is-active" type="button" data-track="newcomer">Новичок</button>
+              <button class="track-filter" type="button" data-track="manager">People-менеджер</button>
+              <button class="track-filter" type="button" data-track="employee">Все сотрудники</button>
+            </div>
+          </div>
+
+          <div class="track-grid">
+            <article class="track-card is-active" data-track-card="newcomer" id="onboarding">
+              <span class="track-badge">Трек 01</span>
+              <h3>Трек новичка</h3>
+              <p>Адаптация в первые 30/60/90 дней: компания, продукт, процессы, сервис и первые навыки.</p>
+              <ul>
+                <li>План адаптации по неделям</li>
+                <li>Обязательные курсы и чек-листы</li>
+                <li>Первые встречи и тренинги</li>
+                <li>Материалы для быстрой самостоятельной работы</li>
+              </ul>
+              <a class="text-link" href="onboarding.html">Открыть трек</a>
+            </article>
+
+            <article class="track-card" data-track-card="manager" id="managers">
+              <span class="track-badge">Трек 02</span>
+              <h3>Трек people-менеджера</h3>
+              <p>Инструменты руководителя: онбординг сотрудников, 1:1, обратная связь, развитие и удержание.</p>
+              <ul>
+                <li>Школа people-менеджера</li>
+                <li>Онбординг нового сотрудника</li>
+                <li>Сложные разговоры и performance</li>
+                <li>Пакет шаблонов и сценариев встреч</li>
+              </ul>
+              <a class="text-link" href="knowledge.html">Перейти к материалам</a>
+            </article>
+
+            <article class="track-card" data-track-card="employee">
+              <span class="track-badge">Трек 03</span>
+              <h3>Обучение для всех сотрудников</h3>
+              <p>Общие программы развития, сервисные стандарты, soft skills и рабочие знания.</p>
+              <ul>
+                <li>Коммуникация и сервис</li>
+                <li>Рабочие процессы и инструменты</li>
+                <li>Подборки по ролям и навыкам</li>
+                <li>Рекомендации от L&amp;D команды</li>
+              </ul>
+              <a class="text-link" href="events.html">Смотреть программы</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Ваше обучение</p>
+            <h2>Что сейчас в фокусе</h2>
+          </div>
+
+          <div class="focus-grid">
+            <article class="focus-card">
+              <span class="focus-kicker">Продолжить</span>
+              <h3>Онбординг: неделя 2</h3>
+              <p>Осталось пройти вводный модуль по продукту и сервисный стандарт первой линии.</p>
+              <a href="onboarding.html">К модулю</a>
+            </article>
+            <article class="focus-card">
+              <span class="focus-kicker">Обязательно</span>
+              <h3>3 курса до 5 апреля</h3>
+              <p>Политики компании, безопасность данных и основы клиентского сервиса.</p>
+              <a href="knowledge.html">Открыть список</a>
+            </article>
+            <article class="focus-card">
+              <span class="focus-kicker">Ближайшее событие</span>
+              <h3>Обратная связь в команде</h3>
+              <p>Завтра, 16:00, онлайн. Еще 9 свободных мест.</p>
+              <a href="events.html">Записаться</a>
+            </article>
+            <article class="focus-card">
+              <span class="focus-kicker">Новое за неделю</span>
+              <h3>8 статей и 3 видео</h3>
+              <p>Обновлены шаблоны 1:1, гайд по адаптации и библиотека коротких обучающих видео.</p>
+              <a href="knowledge.html">Смотреть обновления</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="catalog">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Разделы портала</p>
+            <h2>Популярные точки входа</h2>
+          </div>
+
+          <div class="portal-grid">
+            <a class="portal-tile tone-peach" href="onboarding.html">Онбординг</a>
+            <a class="portal-tile tone-sky" href="onboarding.html">Академия новичка</a>
+            <a class="portal-tile tone-green" href="knowledge.html">Школа people-менеджера</a>
+            <a class="portal-tile tone-rose" href="events.html">Календарь тренингов</a>
+            <a class="portal-tile tone-sand" href="knowledge.html">База знаний</a>
+            <a class="portal-tile tone-aqua" href="knowledge.html#video-library">Видеотека</a>
+            <a class="portal-tile tone-lilac" href="knowledge.html#templates">Шаблоны и чек-листы</a>
+            <a class="portal-tile tone-blue" href="knowledge.html#faq">FAQ и помощь</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-contrast" id="events">
+        <div class="container">
+          <div class="section-heading section-heading-inline">
+            <div>
+              <p class="eyebrow">Календарь</p>
+              <h2>Ближайшие тренинги и события</h2>
+            </div>
+            <a class="section-link" href="events.html">Все мероприятия</a>
+          </div>
+
+          <div class="event-grid">
+            <article class="event-card">
+              <p class="event-date">31 марта · онлайн · 90 минут</p>
+              <h3>Онбординг в Profi.ru: первые 2 недели</h3>
+              <p>Вводная встреча для новых сотрудников с маршрутами, ожиданиями и полезными контактами.</p>
+              <div class="event-footer">
+                <span>18 мест</span>
+                <a class="button button-small button-primary" href="events.html">Записаться</a>
+              </div>
+            </article>
+            <article class="event-card">
+              <p class="event-date">2 апреля · онлайн · 60 минут</p>
+              <h3>Как проводить 1:1</h3>
+              <p>Практический тренинг для people-менеджеров с шаблонами и разбором реальных кейсов.</p>
+              <div class="event-footer">
+                <span>9 мест</span>
+                <a class="button button-small button-primary" href="events.html">Записаться</a>
+              </div>
+            </article>
+            <article class="event-card">
+              <p class="event-date">4 апреля · гибрид · 75 минут</p>
+              <h3>Обратная связь без напряжения</h3>
+              <p>Для всех сотрудников: как давать, принимать и использовать обратную связь в работе.</p>
+              <div class="event-footer">
+                <span>22 места</span>
+                <a class="button button-small button-primary" href="events.html">Записаться</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="knowledge">
+        <div class="container knowledge-layout">
+          <div class="section-heading">
+            <p class="eyebrow">Материалы</p>
+            <h2>База знаний и библиотека практики</h2>
+          </div>
+
+          <div class="knowledge-columns">
+            <article class="knowledge-card">
+              <h3>База знаний</h3>
+              <ul>
+                <li><a href="knowledge.html">Как устроено обучение в компании</a></li>
+                <li><a href="knowledge.html">Регламенты, процессы и политики</a></li>
+                <li><a href="knowledge.html">Чек-лист адаптации новичка</a></li>
+                <li><a href="knowledge.html#templates">Шаблоны встреч 1:1</a></li>
+                <li><a href="knowledge.html#faq">FAQ по внутренним инструментам</a></li>
+              </ul>
+            </article>
+
+            <article class="knowledge-card" id="video">
+              <h3>Видеотека</h3>
+              <ul>
+                <li><a href="knowledge.html#video-library">Записи вводных лекций</a></li>
+                <li><a href="knowledge.html#video-library">Лучшие внутренние вебинары</a></li>
+                <li><a href="knowledge.html#video-library">Короткие видео по процессам</a></li>
+                <li><a href="knowledge.html#video-library">Подборки для managers</a></li>
+                <li><a href="knowledge.html#video-library">Видео для новичков</a></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container">
+          <div class="section-heading section-heading-inline">
+            <div>
+              <p class="eyebrow">Подборки</p>
+              <h2>Готовые сценарии обучения</h2>
+            </div>
+            <a class="section-link" href="knowledge.html">Все подборки</a>
+          </div>
+
+          <div class="collection-grid">
+            <article class="collection-card">
+              <h3>Первая неделя в Profi.ru</h3>
+              <p>Самые важные материалы, встречи и действия для уверенного старта.</p>
+            </article>
+            <article class="collection-card">
+              <h3>Как руководителю адаптировать новичка</h3>
+              <p>Маршрут для people-менеджера с чек-листом, встречами и контрольными точками.</p>
+            </article>
+            <article class="collection-card">
+              <h3>Коммуникация и сервис</h3>
+              <p>Подборка курсов, памяток и практических видео для повседневной работы.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section" id="calendar-full">
+        <div class="container cta-panel">
+          <div>
+            <p class="eyebrow">Персональный старт</p>
+            <h2>Не знаете, с чего начать?</h2>
+            <p>
+              Портал покажет ваш трек, обязательные модули, ближайшие полезные тренинги и
+              материалы, которые нужны именно сейчас.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="button button-primary" href="onboarding.html">Открыть мой трек</a>
+            <a class="button button-secondary" href="events.html">Подобрать обучение</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="support">
+      <div class="container footer-grid">
+        <div>
+          <a class="brand brand-footer" href="#top">
+            <span class="brand-mark">profi</span>
+            <span class="brand-name">Academy</span>
+          </a>
+          <p class="footer-copy">
+            Единая точка входа в обучение, адаптацию, развитие и внутренние знания команды.
+          </p>
+        </div>
+
+        <div>
+          <h3>Разделы</h3>
+          <ul>
+            <li><a href="index.html#catalog">Каталог программ</a></li>
+            <li><a href="knowledge.html">База знаний</a></li>
+            <li><a href="knowledge.html#video-library">Видео</a></li>
+            <li><a href="events.html">Тренинги</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Для ролей</h3>
+          <ul>
+            <li><a href="onboarding.html">Новичкам</a></li>
+            <li><a href="knowledge.html">People-менеджерам</a></li>
+            <li><a href="index.html#tracks">Всем сотрудникам</a></li>
+            <li><a href="index.html#profile">Мой прогресс</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Поддержка</h3>
+          <ul>
+            <li><a href="knowledge.html#faq">FAQ и помощь</a></li>
+            <li><a href="knowledge.html#contacts">Написать в L&amp;D</a></li>
+            <li><a href="events.html">Задать вопрос по тренингам</a></li>
+            <li><a href="knowledge.html#contacts">Сообщить об ошибке</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
